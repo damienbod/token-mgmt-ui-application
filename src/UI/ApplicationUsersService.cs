@@ -2,13 +2,13 @@
 
 namespace Ui;
 
-public class PhotoService
+public class ApplicationUsersService
 {
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _clientFactory;
     private readonly ApiTokenCacheClient _apiTokenCacheClient;
 
-    public PhotoService(IConfiguration configuration,
+    public ApplicationUsersService(IConfiguration configuration,
         IHttpClientFactory clientFactory,
         ApiTokenCacheClient apiTokenCacheClient)
     {

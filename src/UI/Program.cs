@@ -43,7 +43,7 @@ builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(requireAuthPolicy);
 
 builder.Services.AddSingleton<ApiTokenCacheClient>();
-builder.Services.AddScoped<PhotoService>();
+builder.Services.AddScoped<ApplicationUsersService>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddDistributedMemoryCache();

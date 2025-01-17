@@ -8,9 +8,9 @@ namespace Ui.Pages;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly PhotoService _photoService;
+    private readonly ApplicationUsersService _photoService;
 
-    public IndexModel(PhotoService photoService)
+    public IndexModel(ApplicationUsersService photoService)
     {
         _photoService = photoService;
     }
