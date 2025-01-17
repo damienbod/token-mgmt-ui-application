@@ -42,9 +42,11 @@ var requireAuthPolicy = new AuthorizationPolicyBuilder()
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(requireAuthPolicy);
 
+builder.Services.AddSingleton<ApiTokenCacheClient>();
 builder.Services.AddScoped<PhotoService>();
 builder.Services.AddHttpClient();
-builder.Services.Configure<AuthConfigurations>(builder.Configuration.GetSection("AuthConfigurations"));
+
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddRazorPages();
 
