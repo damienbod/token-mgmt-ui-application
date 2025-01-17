@@ -7,7 +7,7 @@ namespace WebApi.Controllers;
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [ApiController]
 [Route("api/[controller]")]
-public class ProfilesController : Controller
+public class ApplicationUsersController : Controller
 {
     [EndpointSummary("This is a summary from OpenApi attributes.")]
     [EndpointDescription("This is a description from OpenApi attributes.")]

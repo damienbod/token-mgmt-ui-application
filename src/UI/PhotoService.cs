@@ -36,7 +36,7 @@ public class PhotoService
 
             client.SetBearerToken(access_token);
 
-            var response = await client.GetAsync("api/Profiles/photo");
+            var response = await client.GetAsync("api/ApplicationUsers/photo");
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();
