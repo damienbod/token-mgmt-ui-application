@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "AheadUI": {
+    "UI": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
