@@ -32,32 +32,24 @@ public class ApiTokenCacheClient
         _cache = cache;
     }
 
-    public async Task<string> GetApiToken(string api_name, string api_scope, string secret)
+    public async Task<string> GetApiToken(string clientId, string scope, string secret)
     {
-        var accessToken = GetFromCache(api_name);
+        var accessToken = GetFromCache(clientId);
 
-        if (accessToken != null)
+        if ((accessToken != null) && (accessToken.ExpiresIn > DateTime.UtcNow))
         {
-            if (accessToken.ExpiresIn > DateTime.UtcNow)
-            {
-                return accessToken.AccessToken;
-            }
-            else
-            {
-                // remove  => NOT Needed for this cache type
-            }
+            return accessToken.AccessToken;
         }
 
-        _logger.LogDebug("GetApiToken new from STS for {api_name}", api_name);
+        _logger.LogDebug("GetApiToken new from secure token server for {clientId}", clientId);
 
-        // add
-        var newAccessToken = await GetInternalApiToken(api_name, api_scope, secret);
-        AddToCache(api_name, newAccessToken);
+        var newAccessToken = await GetInternalApiToken(clientId, scope, secret);
+        AddToCache(clientId, newAccessToken);
 
         return newAccessToken.AccessToken;
     }
 
-    private async Task<AccessTokenItem> GetInternalApiToken(string api_name, string api_scope, string secret)
+    private async Task<AccessTokenItem> GetInternalApiToken(string clientId, string scope, string secret)
     {
         try
         {
@@ -71,13 +63,14 @@ public class ApiTokenCacheClient
                 throw new ApplicationException($"Status code: {disco.IsError}, Error: {disco.Error}");
             }
 
-            var tokenResponse = await HttpClientTokenRequestExtensions.RequestClientCredentialsTokenAsync(_httpClient, new ClientCredentialsTokenRequest
-            {
-                Scope = api_scope,
-                ClientSecret = secret,
-                Address = disco.TokenEndpoint,
-                ClientId = api_name
-            });
+            var tokenResponse = await HttpClientTokenRequestExtensions
+                .RequestClientCredentialsTokenAsync(_httpClient, new ClientCredentialsTokenRequest
+                {
+                    Scope = scope,
+                    ClientSecret = secret,
+                    Address = disco.TokenEndpoint,
+                    ClientId = clientId
+                });
 
             if (tokenResponse.IsError)
             {
