@@ -35,15 +35,6 @@ builder.Services.AddAuthentication(options =>
 
 var profileApiBaseUrl = builder.Configuration["AuthConfigurations:ProtectedApiUrl"];
 
-builder.Services.AddOpenIdConnectAccessTokenManagement();
-
-// If you want to use named clients
-builder.Services.AddUserAccessTokenHttpClient("profileClient",
-    configureClient: client =>
-    {
-        client.BaseAddress = new Uri(profileApiBaseUrl!);
-    });
-
 var requireAuthPolicy = new AuthorizationPolicyBuilder()
     .RequireAuthenticatedUser()
     .Build();

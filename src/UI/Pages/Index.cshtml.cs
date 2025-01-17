@@ -1,6 +1,4 @@
-﻿using Duende.AccessTokenManagement.OpenIdConnect;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
@@ -23,15 +21,6 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         var photo = await _photoService.GetPhotoAsync();
-
-        // OR
-        //var accessToken = await HttpContext.GetUserAccessTokenAsync(
-        //    new UserTokenRequestParameters
-        //    {
-        //        Scope = "myscope"
-        //    });
-
-        //var photo = await _photoService.GetPhotoAsync(accessToken.AccessToken!);
 
         if (!string.IsNullOrEmpty(photo))
         {
