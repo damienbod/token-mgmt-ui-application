@@ -43,7 +43,7 @@ var requireAuthPolicy = new AuthorizationPolicyBuilder()
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(requireAuthPolicy);
 
-builder.Services.AddSingleton<ApiTokenCacheClient>();
+builder.Services.AddSingleton<ApplicationAccessTokenCache>();
 builder.Services.AddScoped<ApplicationUsersService>();
 builder.Services.AddHttpClient();
 

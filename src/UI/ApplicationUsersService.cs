@@ -6,11 +6,11 @@ public class ApplicationUsersService
 {
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _clientFactory;
-    private readonly ApiTokenCacheClient _apiTokenCacheClient;
+    private readonly ApplicationAccessTokenCache _apiTokenCacheClient;
 
     public ApplicationUsersService(IConfiguration configuration,
         IHttpClientFactory clientFactory,
-        ApiTokenCacheClient apiTokenCacheClient)
+        ApplicationAccessTokenCache apiTokenCacheClient)
     {
         _configuration = configuration;
         _clientFactory = clientFactory;

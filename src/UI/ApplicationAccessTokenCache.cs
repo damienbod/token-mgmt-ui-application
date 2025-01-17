@@ -1,11 +1,15 @@
 ﻿using IdentityModel.Client;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
 
 namespace Ui;
 
-public class ApiTokenCacheClient
+/// <summary>
+/// Cache persists token per application
+/// </summary>
+public class ApplicationAccessTokenCache
 {
-    private readonly ILogger<ApiTokenCacheClient> _logger;
+    private readonly ILogger<ApplicationAccessTokenCache> _logger;
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
 
@@ -20,7 +24,7 @@ public class ApiTokenCacheClient
         public DateTime ExpiresIn { get; set; }
     }
 
-    public ApiTokenCacheClient(
+    public ApplicationAccessTokenCache(
         IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory,
@@ -28,7 +32,7 @@ public class ApiTokenCacheClient
     {
         _configuration = configuration;
         _httpClient = httpClientFactory.CreateClient();
-        _logger = loggerFactory.CreateLogger<ApiTokenCacheClient>();
+        _logger = loggerFactory.CreateLogger<ApplicationAccessTokenCache>();
         _cache = cache;
     }
 
@@ -63,8 +67,8 @@ public class ApiTokenCacheClient
                 throw new ApplicationException($"Status code: {disco.IsError}, Error: {disco.Error}");
             }
 
-            var tokenResponse = await HttpClientTokenRequestExtensions
-                .RequestClientCredentialsTokenAsync(_httpClient, new ClientCredentialsTokenRequest
+            var tokenResponse = await HttpClientTokenRequestExtensions.RequestClientCredentialsTokenAsync(_httpClient, 
+                new ClientCredentialsTokenRequest
                 {
                     Scope = scope,
                     ClientSecret = secret,
@@ -94,11 +98,12 @@ public class ApiTokenCacheClient
 
     private void AddToCache(string key, AccessTokenItem accessTokenItem)
     {
-        var options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromDays(cacheExpirationInDays));
+        var options = new DistributedCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromDays(cacheExpirationInDays));
 
         lock (_lock)
         {
-            _cache.SetString(key, System.Text.Json.JsonSerializer.Serialize(accessTokenItem), options);
+            _cache.SetString(key, JsonSerializer.Serialize(accessTokenItem), options);
         }
     }
 
@@ -107,7 +112,7 @@ public class ApiTokenCacheClient
         var item = _cache.GetString(key);
         if (item != null)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<AccessTokenItem>(item);
+            return JsonSerializer.Deserialize<AccessTokenItem>(item);
         }
 
         return null;
