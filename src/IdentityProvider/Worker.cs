@@ -55,7 +55,7 @@ public class Worker : IHostedService
                         Permissions.Endpoints.Authorization,
                         Permissions.Endpoints.Token,
                         Permissions.GrantTypes.ClientCredentials,
-                        Permissions.Prefixes.Scope + "myscope"
+                        Permissions.Prefixes.Scope + "myccscope"
                     }
                 });
             }
@@ -106,6 +106,23 @@ public class Worker : IHostedService
         static async Task RegisterScopesAsync(IServiceProvider provider)
         {
             var manager = provider.GetRequiredService<IOpenIddictScopeManager>();
+
+            if (await manager.FindByNameAsync("myccscope") is null)
+            {
+                await manager.CreateAsync(new OpenIddictScopeDescriptor
+                {
+                    DisplayName = "myccscope API access",
+                    DisplayNames =
+                    {
+                        [CultureInfo.GetCultureInfo("fr-FR")] = "Accès à l'API de démo"
+                    },
+                    Name = "myccscope",
+                    Resources =
+                    {
+                        "rs_myccscope"
+                    }
+                });
+            }
 
             if (await manager.FindByNameAsync("myscope") is null)
             {
