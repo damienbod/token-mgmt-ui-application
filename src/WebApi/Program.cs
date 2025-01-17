@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NetEscapades.AspNetCore.SecurityHeaders.Infrastructure;
 using WebApi;
