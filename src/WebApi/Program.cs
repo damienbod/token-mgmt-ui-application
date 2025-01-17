@@ -17,11 +17,11 @@ builder.Services.AddSecurityHeaderPolicies()
     {
         // sum is weak security headers due to Swagger UI deployment
         // should only use in development
-        if (deploySwaggerUI) 
+        if (deploySwaggerUI)
         {
             // Weakened security headers for Swagger UI
             if (ctx.HttpContext.Request.Path.StartsWithSegments("/swagger"))
-            {               
+            {
                 return SecurityHeadersDefinitionsSwagger.GetHeaderPolicyCollection(isDev);
             }
 

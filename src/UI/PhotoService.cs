@@ -51,7 +51,7 @@ public class PhotoService
         }
         catch (Exception e)
         {
-            
+
             throw new ApplicationException($"Exception {e}");
         }
     }
