@@ -34,8 +34,6 @@ builder.Services.AddAuthentication(options =>
     options.GetClaimsFromUserInfoEndpoint = true;
 });
 
-var profileApiBaseUrl = builder.Configuration["AuthConfigurations:ProtectedApiUrl"];
-
 var requireAuthPolicy = new AuthorizationPolicyBuilder()
     .RequireAuthenticatedUser()
     .Build();
