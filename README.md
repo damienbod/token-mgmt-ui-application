@@ -1,5 +1,11 @@
 # ASP.NET Core application access token management
 
+Managing application access tokens in an ASP.NET Core web application. Any application with or without a user can use application access tokens as long as the application can persist the tokens in a safe way.
+
+## Setup 
+
+An ASP.NET Core web application authenticates using OpenID Connect and OpenIddict as the secure token server. The application needs to use data from an app-to-app resource. An OAuth client credential flow is used to get an application access token to access the API. The OAuth client credentials flow can only be used when it can keep a secret. This token has nothing in common with the delegated access token from the user authentication. The application is persisted once for the application. An in-memory cache is used for this. The application sends the application access token as a bearer token to the API.
+
 ![ASP.NET Core application access token management](https://github.com/damienbod/token-mgmt-ui-application/blob/main/images/context.png)
 
 ## Blogs in this series
