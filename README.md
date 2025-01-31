@@ -25,6 +25,8 @@ https://www.epochconverter.com/
 
 [JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
 
+[Best Current Practice for OAuth 2.0 Security](https://datatracker.ietf.org/doc/rfc9700/)
+
 [The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
 
 [OAuth 2.0 Demonstrating Proof of Possession DPoP](https://datatracker.ietf.org/doc/html/rfc9449)
