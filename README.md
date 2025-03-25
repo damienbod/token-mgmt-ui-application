@@ -13,6 +13,7 @@ An ASP.NET Core web application authenticates using OpenID Connect and OpenIddic
 - [ASP.NET Core user delegated access token management](https://damienbod.com/2025/01/15/asp-net-core-user-delegated-access-token-management/)
 - [ASP.NET Core user application access token management](https://damienbod.com/2025/01/20/asp-net-core-user-application-access-token-management/)
 - [ASP.NET Core delegated OAuth Token Exchange access token management](https://damienbod.com/2025/02/10/asp-net-core-delegated-oauth-token-exchange-access-token-management/)
+- [ASP.NET Core delegated Microsoft OBO access token management (Entra only)](https://damienbod.com/2025/03/25/asp-net-core-delegated-microsoft-obo-access-token-management-entra-only/)
 
 ## Links
 
