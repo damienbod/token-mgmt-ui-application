@@ -3,7 +3,7 @@
 @inject IAuthorizationService AuthorizationService
 @inject IConfiguration Configuration
 @{
-    var profileManagement = $"{Configuration["OpenIDConnectSettings:Authority"]}/Account/Manage";
+    var profileManagement = $"{Configuration["OpenIDConnectSettings:Authority"]}/Identity/Account/Manage";
 }
 <!DOCTYPE html>
 <html lang="en">
